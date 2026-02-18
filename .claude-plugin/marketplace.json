@@ -1,0 +1,16 @@
+{
+  "name": "sugano-plugins",
+  "owner": {
+    "name": "sugano"
+  },
+  "metadata": {
+    "description": "sugano 個人用 Claude Code プラグイン"
+  },
+  "plugins": [
+    {
+      "name": "sugano",
+      "source": "./",
+      "description": "VSCode内ブラウザ操作などの個人用スキル集"
+    }
+  ]
+}
