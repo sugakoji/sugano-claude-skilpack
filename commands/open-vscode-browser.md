@@ -7,7 +7,7 @@ argument-hint: [URL or 自然言語]
 
 ## Context
 
-- Browse Lite拡張: !`ls -d ~/.vscode/extensions/antfu.browse-lite-* 2>/dev/null | head -1 || echo "未インストール"`
+- Browse Lite拡張: !`ls -d ~/.vscode/extensions/sugakoji.browse-lite-* 2>/dev/null | head -1 || echo "未インストール"`
 - BROWSE_LITE_IPC: !`echo "${BROWSE_LITE_IPC:-未設定}"`
 
 ## Your task
@@ -26,14 +26,14 @@ argument-hint: [URL or 自然言語]
 
 Context セクションの結果から、以下を確認する。
 
-1. **Browse Lite** (`antfu.browse-lite`) がインストール済みか
+1. **Browse Lite** (`sugakoji.browse-lite`) がインストール済みか
 2. **`BROWSE_LITE_IPC`** 環境変数が設定されているか
 
 両方OKなら Step 2 へ進む。不足がある場合は以下を案内する。
 
 #### Browse Lite が未インストールの場合
 
-VSCode拡張機能マーケットプレイスから `antfu.browse-lite` をインストールするよう案内する。
+VSCode拡張機能マーケットプレイスから `sugakoji.browse-lite` をインストールするよう案内する。
 
 #### BROWSE_LITE_IPC が未設定の場合
 
