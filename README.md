@@ -7,7 +7,7 @@
 Claude Code 内で以下を実行：
 
 ```
-/plugin marketplace add /path/to/sugano-claude-skilpack
+/plugin marketplace add sugakoji/sugano-claude-skilpack
 /plugin install sugano@sugano-plugins
 ```
 
