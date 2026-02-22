@@ -19,6 +19,8 @@ argument-hint: [URL or 自然言語]
 
 - `/sugakoji:open-vscode-browser https://github.com/org/repo/pull/99` → URL直接指定
 - `/sugakoji:open-vscode-browser http://localhost:3000` → localhost
+- `/sugakoji:open-vscode-browser file:///Users/user/project/index.html` → ローカルファイル
+- `/sugakoji:open-vscode-browser /Users/user/project/index.html` → ローカルファイルパス（`file://` を自動付与）
 - `/sugakoji:open-vscode-browser` → 会話コンテキストからURLを推測して開く
 - `/sugakoji:open-vscode-browser さっきのPR開いて` → コンテキストから該当URLを特定して開く
 
@@ -46,7 +48,8 @@ VSCode拡張機能マーケットプレイスから `sugakoji.browse-lite` を�
 
 `$ARGUMENTS` からURLを特定する:
 
-- URLが直接指定されている場合はそのまま使用
+- `http://` `https://` `file://` で始まるURLはそのまま使用
+- `/` で始まる絶対パスの場合は `file://` を先頭に付与して `file:///path/to/file` 形式にする
 - 自然言語や引数なしの場合は会話コンテキストからURLを推測
 
 ### Step 3: Browse Liteで開く
