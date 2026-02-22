@@ -1,14 +1,14 @@
 ---
 description: VSCode内のBrowse Liteで指定URLを開く
 disable-model-invocation: true
-allowed-tools: Bash(python3:*), Bash(open:*), Bash(mkdir:*), Write, Read
+allowed-tools: Bash(echo:*), Read
 argument-hint: [URL or 自然言語]
 ---
 
 ## Context
 
 - Browse Lite拡張: !`ls -d ~/.vscode/extensions/antfu.browse-lite-* 2>/dev/null | head -1 || echo "未インストール"`
-- URIハンドラ拡張: !`ls -d ~/.vscode/extensions/local.browse-lite-cli-* 2>/dev/null | head -1 || echo "未インストール"`
+- BROWSE_LITE_IPC: !`echo "${BROWSE_LITE_IPC:-未設定}"`
 
 ## Your task
 
@@ -24,56 +24,23 @@ argument-hint: [URL or 自然言語]
 
 ### Step 1: 前提チェック
 
-Context セクションの結果から、以下の2つの拡張機能がインストール済みか確認する。
+Context セクションの結果から、以下を確認する。
 
-1. **Browse Lite** (`antfu.browse-lite`)
-2. **カスタムURIハンドラ** (`local.browse-lite-cli`)
+1. **Browse Lite** (`antfu.browse-lite`) がインストール済みか
+2. **`BROWSE_LITE_IPC`** 環境変数が設定されているか
 
-両方インストール済みなら Step 2 へ進む。
-不足がある場合は、以下のセットアップ手順をユーザーに案内する。
+両方OKなら Step 2 へ進む。不足がある場合は以下を案内する。
 
 #### Browse Lite が未インストールの場合
 
 VSCode拡張機能マーケットプレイスから `antfu.browse-lite` をインストールするよう案内する。
 
-#### カスタムURIハンドラが未インストールの場合
+#### BROWSE_LITE_IPC が未設定の場合
 
-`~/.vscode/extensions/local.browse-lite-cli-1.0.0/` に以下の2ファイルを Write ツールで作成し、VSCodeのリロード（`Cmd+Shift+P` → `Developer: Reload Window`）を案内する。
+以下を案内する:
 
-`package.json`:
-```json
-{
-  "name": "browse-lite-cli",
-  "displayName": "Browse Lite CLI Opener",
-  "description": "Open Browse Lite via URI handler from terminal",
-  "version": "1.0.0",
-  "publisher": "local",
-  "engines": { "vscode": "^1.70.0" },
-  "activationEvents": ["onUri"],
-  "main": "./extension.js",
-  "contributes": {}
-}
-```
-
-`extension.js`:
-```javascript
-const vscode = require('vscode');
-function activate(context) {
-  context.subscriptions.push(
-    vscode.window.registerUriHandler({
-      handleUri(uri) {
-        const params = new URLSearchParams(uri.query);
-        const url = params.get('url');
-        if (url) {
-          vscode.commands.executeCommand('browse-lite.open', url);
-        }
-      }
-    })
-  );
-}
-function deactivate() {}
-module.exports = { activate, deactivate };
-```
+1. VSCodeの統合ターミナルを開き直す（`BROWSE_LITE_IPC` はBrowse Lite拡張がターミナル起動時に自動設定する）
+2. Claude Codeを再起動する（シェル環境変数を再読み込みするため）
 
 ### Step 2: URLの特定
 
@@ -84,11 +51,10 @@ module.exports = { activate, deactivate };
 
 ### Step 3: Browse Liteで開く
 
-URLをパーセントエンコードし、カスタム拡張機能のURIハンドラ経由でBrowse Liteを開く:
+`BROWSE_LITE_IPC` が指すIPCファイルにURLを書き込む。Browse Lite拡張がファイル変更を検知してブラウザを開く。
 
 ```bash
-ENCODED_URL=$(python3 -c "import urllib.parse; print(urllib.parse.quote('TARGET_URL', safe=''))")
-open "vscode://local.browse-lite-cli/open?url=${ENCODED_URL}"
+echo "TARGET_URL" > "$BROWSE_LITE_IPC"
 ```
 
 ### Step 4: 結果の報告
