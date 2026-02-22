@@ -1,14 +1,14 @@
 {
-  "name": "sugano-plugins",
+  "name": "sugakoji-plugins",
   "owner": {
-    "name": "sugano"
+    "name": "sugakoji"
   },
   "metadata": {
-    "description": "sugano 個人用 Claude Code プラグイン"
+    "description": "sugakoji 個人用 Claude Code プラグイン"
   },
   "plugins": [
     {
-      "name": "sugano",
+      "name": "sugakoji",
       "source": "./",
       "description": "VSCode内ブラウザ操作などの個人用スキル集"
     }

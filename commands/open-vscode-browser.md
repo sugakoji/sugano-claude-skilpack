@@ -17,10 +17,10 @@ argument-hint: [URL or 自然言語]
 
 ### 入力パターン
 
-- `/sugano:open-vscode-browser https://github.com/org/repo/pull/99` → URL直接指定
-- `/sugano:open-vscode-browser http://localhost:3000` → localhost
-- `/sugano:open-vscode-browser` → 会話コンテキストからURLを推測して開く
-- `/sugano:open-vscode-browser さっきのPR開いて` → コンテキストから該当URLを特定して開く
+- `/sugakoji:open-vscode-browser https://github.com/org/repo/pull/99` → URL直接指定
+- `/sugakoji:open-vscode-browser http://localhost:3000` → localhost
+- `/sugakoji:open-vscode-browser` → 会話コンテキストからURLを推測して開く
+- `/sugakoji:open-vscode-browser さっきのPR開いて` → コンテキストから該当URLを特定して開く
 
 ### Step 1: 前提チェック
 
